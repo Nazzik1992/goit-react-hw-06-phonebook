@@ -2,31 +2,40 @@ import css from './ContactForm.module.css'
 import swal from 'sweetalert';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact, getContactsState } from '../../redux/contactsSlice';
-
-
-const initialValues = {
-  name: '',
-  number: '',
+ 
+const findContactByName = (contacts, userName) => {
+  const textFilter = userName.toUpperCase();
+  return contacts.find(element => element.name.toUpperCase() === textFilter);
 };
 
-export  function ContactForm() {
-  const contacts = useSelector(getContactsState);
-  const dispatch = useDispatch();
+const ContactForm = () => {
+  const contacts = useSelector(getContactsState );
+  const dispatcher = useDispatch();
 
-  const handleSubmit = (values, { resetForm }) => {
-    let check = contacts.find(e => e.name === values.name);
-
-    if (check) {
-      swal(`"${values.name}" is alredy in contacts`, '', 'warning');
-    } else {
-      resetForm();
-      dispatch(addContact(values));
-      
+  const addnewContact = (contacts, newContact) => {
+    if (findContactByName(contacts, newContact.name)) {
+      swal(`${newContact.name} is already in contacts`);
+      return;
     }
+
+    dispatcher(addContact(newContact));
+
+    return true;
+  };
+
+  const handleSubmit = event => {
+    event.preventDefault();
+    const form = event.target;
+    const newContact = {
+      name: form.elements.name.value,
+      number: form.elements.number.value,
+    };
+
+    addnewContact(contacts, newContact) && form.reset();
   };
     return (
-      <>
-        <form className={css.form} initialValues={initialValues} onSubmit={handleSubmit}>
+      
+        <form className={css.form} onSubmit={handleSubmit}>
           <label className={css.label} htmlFor="name">
             Name
             <input
@@ -51,8 +60,8 @@ export  function ContactForm() {
           </label>
           <button className={css.btn} type="submit">Add contact</button>
         </form>
-      </>
+      
     );
   }
 
-  
+  export default ContactForm;

@@ -12,6 +12,7 @@ export function Contacts() {
   const contacts = useSelector(getContactsState);
   const filter = useSelector(getFilterState);
   const dispatch = useDispatch();
+
   const filterContacts  = () => {
    
     return   contacts.filter(contact =>

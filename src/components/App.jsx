@@ -1,7 +1,7 @@
 
 import { Filter } from './Fiter/Filter';
 import  { Contacts } from './Contacts/Contacts';
-import  { ContactForm }  from './ContactForm/ContactForm';
+import  ContactForm   from './ContactForm/ContactForm';
 
 
  const App = () => {
