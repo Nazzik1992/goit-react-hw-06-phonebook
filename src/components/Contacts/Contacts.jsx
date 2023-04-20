@@ -12,26 +12,29 @@ export function Contacts() {
   const contacts = useSelector(getContactsState);
   const filter = useSelector(getFilterState);
   const dispatch = useDispatch();
+  const filterContacts  = () => {
+   
+    return   contacts.filter(contact =>
+         contact.name.toLowerCase().includes(filter.toLowerCase())
+       );
+   };
   return (
     <>
       <h2>Contacts</h2>
       <ul>
-        {contacts.map(e => {
-          if (!e.name.toLowerCase().includes(filter.toLowerCase())) {
-            return null;
-          }
+      {filterContacts().map(({ id, name, number }) => {
 
           return (
-            <li key={e.id}
+            <li key={id}
             className={css.List}>
               <p>
-                {e.name}: {e.number}
+                {name}: {number}
               </p>
               <button
               className={css.Btn}
                 type="button"
                 onClick={() => {
-                  dispatch(deleteContact(e.id));
+                  dispatch(deleteContact(id));
                 }}
               >
                 Delete

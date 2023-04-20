@@ -16,11 +16,12 @@ export  function ContactForm() {
   const handleSubmit = (values, { resetForm }) => {
     let check = contacts.find(e => e.name === values.name);
 
-    if (check === undefined) {
+    if (check) {
+      swal(`"${values.name}" is alredy in contacts`, '', 'warning');
+    } else {
       resetForm();
       dispatch(addContact(values));
-    } else {
-      swal(`"${values.name}" is alredy in contacts`, '', 'warning');
+      
     }
   };
     return (
