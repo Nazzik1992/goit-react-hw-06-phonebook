@@ -35,6 +35,8 @@ export function Contacts() {
               className={css.Btn}
                 type="button"
                 onClick={() => {
+                  const action = deleteContact(id);
+                  console.log(action)
                   dispatch(deleteContact(id));
                 }}
               >

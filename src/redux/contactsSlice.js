@@ -6,17 +6,18 @@ const INITIAL_CONTAСTS_STATE = {
   filter: '',
 };
 const contactsSlice = createSlice({
-  name: 'contacts_test',
+  name: 'contacts',
   initialState: INITIAL_CONTAСTS_STATE,
   reducers: {
     addContact:  (state, action) => {
+      console.log(action);
       state.items.push(action.payload);
     },
     deleteContact: (state, action) => {
-      const filteredArr = state.items.filter(e => {
-        return e.id !== action.payload;
-      });
-      return { ...state, items: filteredArr };
+      console.log(action);
+      const filteredArr = state.items.filter(item => item.id !== action.payload);
+      state.items = filteredArr;
+   
     },
     addFilter: (state, action) => {
       state.filter = action.payload;
