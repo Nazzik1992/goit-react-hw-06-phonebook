@@ -1,5 +1,6 @@
 import css from './ContactForm.module.css'
 import swal from 'sweetalert';
+import { nanoid } from 'nanoid';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact, getContactsState } from '../../redux/contactsSlice';
  
@@ -18,7 +19,7 @@ const ContactForm = () => {
       return;
     }
 
-    dispatcher(addContact(newContact));
+    dispatcher(addContact({...newContact, id: nanoid()}));
 
     return true;
   };
